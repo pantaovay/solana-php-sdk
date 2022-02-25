@@ -61,6 +61,11 @@ class Connection extends Program
         return $this->client->call('getRecentBlockhash', array_filter([$commitment]))['value'];
     }
 
+    public function getMinimumBalanceForRentExemption(int $dataLength): int
+    {
+        return $this->client->call('getMinimumBalanceForRentExemption', [$dataLength]);
+    }
+
     /**
      * @param Transaction $transaction
      * @param Keypair $signer
