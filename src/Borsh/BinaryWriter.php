@@ -2,7 +2,7 @@
 
 namespace Tighten\SolanaPhpSdk\Borsh;
 
-use Tighten\SolanaPhpSdk\Exceptions\TodoException;
+use Tighten\SolanaPhpSdk\PublicKey;
 use Tighten\SolanaPhpSdk\Util\Buffer;
 use Closure;
 
@@ -126,6 +126,18 @@ class BinaryWriter
     public function writeFixedArray(array $array)
     {
         $this->writeBuffer(Buffer::from($array));
+        return $this;
+    }
+
+    public function writePubKey(PublicKey $publicKey)
+    {
+        $this->writeBuffer($publicKey->toBuffer());
+        return $this;
+    }
+
+    public function writePubKeyAsString(string $publicKey)
+    {
+        $this->writePubKey((new PublicKey($publicKey)));
         return $this;
     }
 
