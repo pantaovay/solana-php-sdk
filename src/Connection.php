@@ -37,7 +37,10 @@ class Connection extends Program
      */
     public function getConfirmedTransaction(string $transactionSignature): array
     {
-        return $this->client->call('getConfirmedTransaction', [$transactionSignature]);
+        return $this->client->call('getTransaction', [
+            $transactionSignature,
+            ['commitment' => Commitment::CONFIRMED]
+        ]);
     }
 
     /**
