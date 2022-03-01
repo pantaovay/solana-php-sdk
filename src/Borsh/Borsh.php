@@ -65,7 +65,7 @@ class Borsh
         $fieldType,
         BinaryWriter $writer
     ) {
-        if (is_string($fieldType)) {
+        if (is_string($fieldType) && ! class_exists($fieldType)) {
             $writer->{'write' . ucfirst($fieldType)}($value);
         } elseif (is_array($fieldType) && isset($fieldType[0])) { // sequential array
             if (is_int($fieldType[0])) {
