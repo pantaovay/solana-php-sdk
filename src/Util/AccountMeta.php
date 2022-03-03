@@ -21,4 +21,13 @@ class AccountMeta implements HasPublicKey
     {
         return $this->publicKey;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'publicKey' => $this->publicKey->toBase58(),
+            'isSigner' => $this->isSigner,
+            'isWritable' => $this->isWritable,
+        ];
+    }
 }

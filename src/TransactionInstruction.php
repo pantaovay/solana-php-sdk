@@ -20,4 +20,18 @@ class TransactionInstruction
         $this->keys = $keys;
         $this->data = Buffer::from($data);
     }
+
+    public function toArray(): array
+    {
+        $keysArray = [];
+        foreach ($this->keys as $key) {
+            $keysArray[] = $key->toArray();
+        }
+
+        return [
+            'programId' => $this->programId->toBase58(),
+            'keys' => $keysArray,
+            'data' => $this->data->toBase58String(),
+        ];
+    }
 }

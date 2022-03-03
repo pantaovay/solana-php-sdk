@@ -565,8 +565,8 @@ class Transaction
             array_push($transaction->signatures, new SignaturePubkeyPair(
                 $message->accountKeys[$i],
                 $signature === Buffer::from(self::DEFAULT_SIGNATURE)->toBase58String()
-                ? null
-                : Buffer::fromBase58($signature)->toString()
+                    ? null
+                    : Buffer::fromBase58($signature)->toString()
             ));
         }
 
@@ -656,5 +656,15 @@ class Transaction
         } else {
             throw new InputValidationException('Unsupported input: ' . get_class($source));
         }
+    }
+
+    public function instructionsArray(): array
+    {
+        $instructionsArray = [];
+        foreach ($this->instructions as $instruction) {
+            $instructionsArray[] = $instruction->toArray();
+        }
+
+        return $instructionsArray;
     }
 }
