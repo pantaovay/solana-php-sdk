@@ -7,6 +7,11 @@ use Tighten\SolanaPhpSdk\Util\Commitment;
 
 class Connection extends Program
 {
+    public function airdrop(string $pubkey, int $lamports)
+    {
+        return $this->client->call('requestAirdrop', [$pubkey, $lamports]);
+    }
+
     /**
      * @param string $pubKey
      * @return array
