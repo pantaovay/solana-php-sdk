@@ -18,7 +18,10 @@ class Connection extends Program
      */
     public function getAccountInfo(string $pubKey): array
     {
-        $accountResponse = $this->client->call('getAccountInfo', [$pubKey, ["encoding" => "jsonParsed"]])['value'];
+        $accountResponse = $this->client->call(
+            'getAccountInfo',
+            [$pubKey, ['encoding' => 'jsonParsed', 'commitment' => 'confirmed']]
+        )['value'];
 
         if (! $accountResponse) {
             throw new AccountNotFoundException("API Error: Account {$pubKey} not found.");
