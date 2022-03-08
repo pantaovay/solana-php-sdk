@@ -92,7 +92,17 @@ class Connection extends Program
             $transaction->recentBlockhash = $this->getRecentBlockhash()['blockhash'];
         }
 
-        $transaction->sign(...$signers);
+        // make sure no duplicated signers
+        $uniqueSigners = [];
+        foreach ($signers as $signer) {
+            if (isset($uniqueSigners[$signer->getPublicKey()->toBase58()])) {
+                continue;
+            }
+
+            $uniqueSigners[$signer->getPublicKey()->toBase58()] = $signer;
+        }
+
+        $transaction->sign(...array_values($uniqueSigners));
 
         $rawBinaryString = $transaction->serialize(false);
 
